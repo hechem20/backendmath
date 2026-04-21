@@ -904,17 +904,17 @@ def parparti(v, u, p):
     else:
         m = simplify(diff(sympify(v), t))
         n = simplify(integrate(sympify(u), t))
+    print("requires", p, "integration by parts")
     print(f"v = {v}  →  v' = {m}")
     print(f"u' = {u}  →  u = {n}")
-    print("requires", p, "integration by parts")
     i = 0
     while i < p:
         j = simplify(sympify('(' + str(n) + ')*(' + v + ')'))
         k = simplify(sympify('(' + str(n) + ')*(' + str(m) + ')'))
         if len(ch) != 0:
-            ch = str(expand(simplify(sympify(ch + '-' + str(j))))) + '-||' + str(k)
+            ch = str(expand(simplify(sympify(ch + '-' + str(j))))) + '-∫' + str(k)
         else:
-            ch = str(simplify(sympify(ch + str(j)))) + '-||' + str(k)
+            ch = str(simplify(sympify(ch + str(j)))) + '-∫' + str(k)
         print(ch)
         if i < p - 1:
             d = divs(str(k), sh)
