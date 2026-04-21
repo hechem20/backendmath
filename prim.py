@@ -912,10 +912,10 @@ def parparti(v, u, p):
         j = simplify(sympify('(' + str(n) + ')*(' + v + ')'))
         k = simplify(sympify('(' + str(n) + ')*(' + str(m) + ')'))
         if len(ch) != 0:
-            ch = str(expand(simplify(sympify(ch + '-' + str(j))))) + '-∫' + str(k)
+            ch = str(expand(simplify(sympify(ch + '-' + str(j))))) + '-||' + str(k)
         else:
-            ch = str(simplify(sympify(ch + str(j)))) + '-∫' + str(k)
-        print(ch)
+            ch = str(simplify(sympify(ch + str(j)))) + '-||' + str(k)
+        print(ch.replace('||', '∫'))
         if i < p - 1:
             d = divs(str(k), sh)
             v = d[0]
