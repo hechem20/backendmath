@@ -904,8 +904,8 @@ def parparti(v, u, p):
     else:
         m = simplify(diff(sympify(v), t))
         n = simplify(integrate(sympify(u), t))
-    print("v=", v, "--> v1=", m)
-    print("u1=", u, "--> u=", n)
+    print(f"v = {v}  →  v' = {m}")
+    print(f"u' = {u}  →  u = {n}")
     print("requires", p, "integration by parts")
     i = 0
     while i < p:
@@ -926,8 +926,8 @@ def parparti(v, u, p):
             else:
                 m = simplify(diff(sympify(v), t))
                 n = simplify(integrate(sympify(u), t))
-            print("v=", v, "--> v1=", m)
-            print("u1=", u, "--> u=", n)
+            print(f"v = {v}  →  v' = {m}")
+            print(f"u' = {u}  →  u = {n}")
             ch = ch[:ch.index('|') - 1]
         i = i + 1
     return ch
