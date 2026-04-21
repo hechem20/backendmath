@@ -306,110 +306,64 @@ def primitive(s,fh):
             m=simplify(m)
         else:
             m=expand(m)
+        
         f=str(m)
         c=conv(f)
         if len(c)>0 and (c[0]==0 or c[0]==1):
             f1=str(sympify(f+'*'+'(1/'+str(c[2])+')'))
             c1=conv(f1)
-        if len(c)!=0 or 'integr' in str(m) or 'lampda' in str(m):
+        if len(c)!=0 or 'integr' in str(m) or 'lampda' in str(m) or '$' in str(m):
             if c[0]==0:
-                print("is written in the forme:")
-                print(str((u1*v-v1*u)/v**2))
-                print("such as u=", f1[:c1[1]],";v=",f1[c1[1]+1:])
-                print("∫",tc,"d",pp(str(n)),"=",m)
+                print("   📐 Forme: (u'·v - v'·u)/v²")
+                print(f"      u = {f1[:c1[1]]}, v = {f1[c1[1]+1:]}")
+                print(f"   ∫ {tc} d{pp(str(n))} = {m}")
             elif c[0]==1:
-                print("is written in the forme:")
-                print(str((u1*v+v1*u)))
-                print("such as u=", f1[:c1[1]],";v=",f1[c1[1]+1:])
-                print("∫",tc,"d",pp(str(n)),"=",m)
+                print("   📐 Forme: u'·v + v'·u")
+                print(f"      u = {f1[:c1[1]]}, v = {f1[c1[1]+1:]}")
+                print(f"   ∫ {tc} d{pp(str(n))} = {m}")
             elif c[0]==2:
                 if f[c[1]-1]=='t':
-                    if c[1]!=1 or str(n)!=str(conts(str(m),3)):
-                        print("∫",tc,"d",pp(str(n)),"=",c[2],"*","∫",conts(str(m),3),"d",pp(str(n)))
-                    print("is written in the forme:")
-                    print(str((u1)/sqrt(u)))
-                    print("such as u=",f[c[1]+1:suit(f,c[1])])
-                    print("∫",tc,"d",pp(str(n)),"=",m)
+                    print("   📐 Forme: u'/√u  →  ∫ u'/√u du = 2√u")
+                    print(f"      u = {f[c[1]+1:suit(f,c[1])]}")
+                    print(f"   ∫ {tc} d{pp(str(n))} = {m}")
                 elif f[c[1]-1]=='p':
-                    if c[1]!=1 or str(n)!=str(conts(str(m),4)):
-                        print("∫",tc,"d",pp(str(n)),"=",c[2],"*","∫",conts(str(m),4),"d",pp(str(n)))
-                    print("is written in the forme:")
-                    print(str((u1)*exp(u)))
-                    print("such as u=",f[c[1]+1:suit(f,c[1])])
-                    print("∫",tc,"d",pp(str(n)),"=",m)
+                    print("   📐 Forme: u'·exp(u)  →  ∫ u'·e^u du = e^u")
+                    print(f"      u = {f[c[1]+1:suit(f,c[1])]}")
+                    print(f"   ∫ {tc} d{pp(str(n))} = {m}")
                 elif f[c[1]-1]=='g':
-                    if c[1]!=1 or str(n)!=str(conts(str(m),5)):
-                        print("∫",tc,"d",pp(str(n)),"=",c[2],"*","∫",conts(str(m),5),"d",pp(str(n)))
-                    print("is written in the forme:")
-                    print(str((u1)/(u)))
-                    print("such as u=",f[c[1]+1:suit(f,c[1])])
-                    print("∫",tc,"d",pp(str(n)),"=",m)
+                    print("   📐 Forme: u'/u  →  ∫ u'/u du = ln|u|")
+                    print(f"      u = {f[c[1]+1:suit(f,c[1])]}")
+                    print(f"   ∫ {tc} d{pp(str(n))} = {m}")
                 elif f[c[1]-1]=='s' and (c[1]-3==0 or f[c[1]-4]!='a'):
-                    if c[1]!=1 or str(n)!=str(conts(str(m),6)):
-                        print("∫",tc,"d",pp(str(n)),"=",c[2],"*","∫",conts(str(m),6),"d",pp(str(n)))
-                    print("is written in the forme:")
-                    print(str((u1)*sin(u)))
-                    print("such as u=",f[c[1]+1:suit(f,c[1])])
-                    print("∫",tc,"d",pp(str(n)),"=",m)
+                    print("   📐 Forme: u'·sin(u)  →  ∫ u'·sin(u) du = -cos(u)")
+                    print(f"      u = {f[c[1]+1:suit(f,c[1])]}")
+                    print(f"   ∫ {tc} d{pp(str(n))} = {m}")
                 elif f[c[1]-1]=='n' and (c[1]-3==0 or f[c[1]-4]!='a'):
-                    if c[1]!=1 or str(n)!=str(conts(str(m),7)):
-                        print("∫",tc,"d",pp(str(n)),"=",c[2],"*","∫",conts(str(m),7),"d",pp(str(n)))
-                    print("is written in the forme:")
-                    print(str((u1)*cos(u)))
-                    print("such as u=",f[c[1]+1:suit(f,c[1])])
-                    print("∫",tc,"d",pp(str(n)),"=",m)
+                    print("   📐 Forme: u'·cos(u)  →  ∫ u'·cos(u) du = sin(u)")
+                    print(f"      u = {f[c[1]+1:suit(f,c[1])]}")
+                    print(f"   ∫ {tc} d{pp(str(n))} = {m}")
                 elif f[c[1]-1]=='n' and f[c[1]-2]=='a':
-                    if c[2]!=1 or str(n)!=str(conts(str(m),0)):
-                        print("∫",tc,"d",pp(str(n)),"=",c[2],"*","∫",conts(str(m),0),"d",pp(str(n)))
-                    print("is written in the forme:")
-                    print(str((u1)/(1+u**2)))
-                    print("such as u=",f[c[1]+1:suit(f,c[1])])
-                    print("∫",tc,"d",pp(str(n)),"=",m)
+                    print("   📐 Forme: u'/(1+u²)  →  ∫ u'/(1+u²) du = arctan(u)")
+                    print(f"      u = {f[c[1]+1:suit(f,c[1])]}")
+                    print(f"   ∫ {tc} d{pp(str(n))} = {m}")
                 elif f[c[1]-1]=='n' and f[c[1]-4]=='a':
-                    if c[1]!=1 or str(n)!=str(conts(str(m),1)):
-                        print("∫",tc,"d",pp(str(n)),"=",c[2],"*","∫",conts(str(m),1),"d",pp(str(n)))
-                    print("is written in the forme:")
-                    print(str((u1)/sqrt(1-(u)**2)))
-                    print("such as u=",f[c[1]+1:suit(f,c[1])])
-                    print("∫",tc,"d",pp(str(n)),"=",m)
+                    print("   📐 Forme: u'/√(1-u²)  →  ∫ u'/√(1-u²) du = arcsin(u)")
+                    print(f"      u = {f[c[1]+1:suit(f,c[1])]}")
+                    print(f"   ∫ {tc} d{pp(str(n))} = {m}")
                 elif f[c[1]-1]=='s' and f[c[1]-4]=='a':
-                    if c[1]!=1 or str(n)!=str(conts(str(m),2)):
-                        print("∫",tc,"d",pp(str(n)),"=",c[2],"*","∫",conts(str(m),2),"d",pp(str(n)))
-                    print("is written in the forme:")
-                    print(str((-u1)/sqrt(1-(u)**2)))
-                    print("such as u=",f[c[1]+1:suit(f,c[1])])
-                    print("∫",tc,"d",pp(str(n)),"=",m)
-            elif c[0]==3:
-                print("is written in the forme:")
-                print(str(u1*u**2))
-                q=f[:c[1]].find('*')
-                q=q+1
-                print("such as u=",f[q:f.rfind('**')])
-                print("∫",tc,"d",pp(str(n)),"=",m)
+                    print("   📐 Forme: -u'/√(1-u²)  →  ∫ -u'/√(1-u²) du = arccos(u)")
+                    print(f"      u = {f[c[1]+1:suit(f,c[1])]}")
+                    print(f"   ∫ {tc} d{pp(str(n))} = {m}")
             elif c[0]==31:
-                print("is written in the forme:")
-                print(str(u1*sqrt(u)))
+                print("   📐 Forme: u'·√u  →  ∫ u'·√u du = (2/3)·u^(3/2)")
                 q=f[:c[1]].find('*')
                 q=q+1
-                print("such as u=",f[q:f.rfind('**')])
-                print("∫",tc,"d",pp(str(n)),"=",m)
-            elif c[0]==4:
-                print("is written in the forme:")
-                print(str(u1/u**2))
-                print("such as u=",f[c[1]+1:f.rfind('**')])
-                print("∫",tc,"d",pp(str(n)),"=",m)
-            elif c[0]==41:
-                print("is written in the forme:")
-                print(str(u1/u**2))
-                print("such as u=",f[c[1]+1:suit(f,c[1])])
-                print("∫",tc,"d",pp(str(n)),"=",m)
-            elif c[0]==5:
-                print("is written in the forme:")
-                print(str(u1/sqrt(u)))
-                print("such as u=",f[c[1]+1:suit(f,c[1])])
-                print("∫",tc,"d",pp(str(n)),"=",m)
+                print(f"      u = {f[q:f.rfind('**')]}")
+                print(f"   ∫ {tc} d{pp(str(n))} = {m}")
             elif c[0]==-1:
-                print("∫",tc,"d",pp(str(n)),"=",m)
+                print(f"   ∫ {tc} d{pp(str(n))} = {m}")
+            else:
+                print(f"   ∫ {tc} d{pp(str(n))} = {m}")
         else:
             if expver(tc,['exp(','cos('])==0:
                 tc=cosexp(tc)
@@ -1658,7 +1612,7 @@ def prim(u, fh):
             u = u[:u.index('q') - 1] + 'cos(t)' + u[suit(u, u.index('r') + 2) + 1:]
             u = str(expand(simplify(sympify(u))))
             print("==", u)
-        primitive(u, fh, 0, 0)
+        primitive(u, fh)
     elif 'sqrt(' in u and (ver2(u) == 0 or ver2(u) == 1):
         u = racine2(u)
         if deri(u) > 0:
